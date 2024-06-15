@@ -1,6 +1,6 @@
 # zapNet
 
-zapNet is a simple and efficient fetch wrapper for making API requests. It provides an easy-to-use interface for performing HTTP requests with minimal configuration.
+ZapNet is a powerful and flexible HTTP client built on top of the native fetch API, designed to simplify network requests in JavaScript and TypeScript applications. It  offers  streamlined approach to making GET, POST, PUT, DELETE, and PATCH requests with enhanced configurability and convenience.
 
 ## Installation
 
