@@ -18,14 +18,17 @@ export class ZapNet extends Zap {
     };
   }
   private async request<T>(url: string, options: RequestInit): Promise<T> {
-    const finalOptions = this.merge(
+    let finalOptions = this.merge(
       { cache: "no-cache" },
       this.options,
       options,
       this.currentOptions
     );
+    finalOptions = await this.runRequestInterceptors(finalOptions);
+    console.log({ finalOptions });
     const response = await fetch(this.parseUri(url, options), finalOptions);
-    return this.parseResponse<T>(response);
+    const interceptedResponse = await this.runResponseInterceptors(response);
+    return this.parseResponse<T>(interceptedResponse);
   }
 
   getBaseUrl() {

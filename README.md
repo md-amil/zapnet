@@ -1,6 +1,6 @@
 # zapNet
 
-ZapNet is a powerful and flexible HTTP client built on top of the native fetch API, designed to simplify network requests in JavaScript and TypeScript applications. It  offers  streamlined approach to making GET, POST, PUT, DELETE, and PATCH requests with enhanced configurability and convenience.
+ZapNet is a powerful and flexible HTTP client built on top of the native fetch API, designed to simplify network requests in JavaScript and TypeScript applications. It offers streamlined approach to making GET, POST, PUT, DELETE, and PATCH requests with enhanced configurability and convenience.
 
 ## Installation
 
@@ -71,15 +71,36 @@ Example of handling errors:
 
 ```Javascript
 import zapNet from "zapnet";
+import {ZapNetError} from 'zapnet';
 
 try {
   const users = await zapNet.get("https://api.github.com/users");
   console.log(users);
-} catch (error) {
-    const {message,error,response}
+} catch (error:ZapNetError) {
+    const {message,status,response} = error
   console.error("Error fetching users:", {message,error,response});
 
 }
+```
+
+## Interceptors
+
+You can intercept requests or responses before they are handled by then or catch.
+
+```Javascript
+// Add a request interceptor
+zapNet.useRequestInterceptor(function (config) {
+    return config;
+  }, function (error) {
+    return Promise.reject(error);
+  });
+
+// Add a response interceptor
+zapNet.useResponseInterceptor(function (response) {
+    return response;
+  }, function (error) {
+    return Promise.reject(error);
+  });
 ```
 
 ## Instance methods
@@ -109,6 +130,7 @@ The available instance methods are listed below. The specified config will be me
 ### zapNet.get(url, [options])
 
 ## License
+
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
 Happy coding! If you have any questions or feedback, feel free to open an issue or submit a pull request.

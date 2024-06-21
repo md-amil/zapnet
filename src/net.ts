@@ -1,6 +1,7 @@
+import Interceptor from "./interceptor";
 import { IObject, IOptions } from "./types";
 
-export class Net {
+export class Net extends Interceptor{
   protected isObject(obj:IObject) {
     return obj && typeof obj === "object" && !Array.isArray(obj);
   }
